@@ -5,7 +5,7 @@
 function custom_save_post_person($post_id, $post, $update)
 {
     if ($post->post_status == 'publish') { // Check if the post type is 'person' and it's a new post
-       create_woocommerce_product_from_person($post_id, $post);
+        create_woocommerce_product_from_person($post_id, $post);
     }
 }
 add_action('save_post_person', 'custom_save_post_person', 20, 3); // Use higher priority to ensure the post is fully saved
@@ -38,15 +38,18 @@ function create_woocommerce_product_from_person($person_id, $post)
     $product->update_meta_data('_linked_person_id', $person_id);
 
     // Save the product
-    $product_id = $product->save();
+    //   $product_id = $product->save();
 
     // Uncomment the following lines to attach the PDF if you have implemented the generate_pdf_from_person function
-    // $pdf_url = generate_pdf_from_person($person_id);
-    // $download = new WC_Product_Download();
-    // $download->set_name('Person PDF');
-    // $download->set_file($pdf_url);
-    // $product->set_downloads(array($download));
-    // $product->save();
+    $pdf_url = generate_pdf_from_person($person_id, $post);
+    $download = new WC_Product_Download();
+    $download->set_name('Person PDF');
+    $download->set_file($pdf_url);
+    $product->set_downloads(array($download));
+    $product_id = $product->save();
+
+    // Send email notification
+    send_product_creation_email($person_id, $pdf_url);
 }
 
 // Function to get product ID by person ID

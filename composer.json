@@ -1,0 +1,17 @@
+{
+    "name": "tarikul/custom",
+    "license": "GPLV2",
+    "autoload": {
+        "psr-4": {
+            "Tarikul\\Custom\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tarikul Islam"
+        }
+    ],
+    "require": {
+        "mpdf/mpdf": "8.2.1"
+    }
+}
