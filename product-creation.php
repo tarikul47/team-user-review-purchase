@@ -24,8 +24,6 @@ function create_woocommerce_product_from_person($person_id, $post)
 
     error_log(print_r($person_title, true));
 
-    
-
     // Create new product
     $product = new WC_Product();
     $product->set_name($person_title);
