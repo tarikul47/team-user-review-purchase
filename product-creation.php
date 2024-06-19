@@ -4,8 +4,21 @@
 // Custom post saving functionality and create a product with pdf data 
 function custom_save_post_person($post_id, $post, $update)
 {
+    // error_log(print_r($update, true));
+
     if ($post->post_status == 'publish') { // Check if the post type is 'person' and it's a new post
-        create_woocommerce_product_from_person($post_id, $post);
+        // Save the review meta data
+        save_person_meta_boxes($post_id);
+
+        if (!$update) {
+            error_log(print_r('new post create', true));
+            // Handle new post creation
+            create_woocommerce_product_from_person($post_id, $post);
+        } else {
+            // Optionally handle post update (if needed)
+            //   update_woocommerce_product_from_person($post_id, $post);
+            error_log(print_r('update', true));
+        }
     }
 }
 add_action('save_post_person', 'custom_save_post_person', 20, 3); // Use higher priority to ensure the post is fully saved
@@ -22,7 +35,7 @@ function create_woocommerce_product_from_person($person_id, $post)
 
     $person_title = $post->post_title;
 
-    error_log(print_r($person_title, true));
+    // error_log(print_r($person_title, true));
 
     // Create new product
     $product = new WC_Product();
