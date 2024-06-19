@@ -10,10 +10,10 @@ function custom_save_post_person($post_id, $post, $update)
         // Save the review meta data
         save_person_meta_boxes($post_id);
 
-        if (!$update) {
+        if ($update) {
             error_log(print_r('new post create', true));
             // Handle new post creation
-            create_woocommerce_product_from_person($post_id, $post);
+            create_woocommerce_product_from_person($_POST, $post_id, $post);
         } else {
             // Optionally handle post update (if needed)
             //   update_woocommerce_product_from_person($post_id, $post);
@@ -24,7 +24,7 @@ function custom_save_post_person($post_id, $post, $update)
 add_action('save_post_person', 'custom_save_post_person', 20, 3); // Use higher priority to ensure the post is fully saved
 
 // Create a product when create a new user 
-function create_woocommerce_product_from_person($person_id, $post)
+function create_woocommerce_product_from_person($post_data, $person_id, $post)
 {
     // Check if a WooCommerce product already exists for this person
     $existing_product_id = get_product_id_by_person($person_id);
@@ -35,7 +35,8 @@ function create_woocommerce_product_from_person($person_id, $post)
 
     $person_title = $post->post_title;
 
-    // error_log(print_r($person_title, true));
+    error_log(print_r('gggggggggggggg', true));
+    error_log(print_r($post_data, true));
 
     // Create new product
     $product = new WC_Product();
@@ -50,8 +51,8 @@ function create_woocommerce_product_from_person($person_id, $post)
     // Add meta data to link the product to the person
     $product->update_meta_data('_linked_person_id', $person_id);
 
-    // Save the product
-    //   $product_id = $product->save();
+    error_log(print_r('post_data extra----', true));
+    error_log(print_r($post_data, true));
 
     // Uncomment the following lines to attach the PDF if you have implemented the generate_pdf_from_person function
     $pdf_url = generate_pdf_from_person($person_id, $post);
