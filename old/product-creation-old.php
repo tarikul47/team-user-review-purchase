@@ -1,6 +1,15 @@
 <?php
 // require_once __DIR__ . '/vendor/autoload.php';
 
+/**
+ * 1. save_person_meta_boxes()
+ * 2. Meat data save as a post in review 
+ * 3. get_product_id_by_person()
+ * 2. create_woocommerce_product_from_person()
+ * 4. generate_pdf_from_person()
+ * 5. send_product_creation_email()
+ */
+
 // Custom post saving functionality and create a product with pdf data 
 function custom_save_post_person($post_id, $post, $update)
 {
