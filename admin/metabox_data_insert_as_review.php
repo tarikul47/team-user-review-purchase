@@ -55,14 +55,14 @@ function metabox_data_insert_as_review($person_id, $post_data)
         } else {
             // Create a new review post if none exists
             $review_post = array(
+                'post_type' => 'review',
                 'post_title' => $review_title,
                 'post_content' => $review_content,
                 'post_status' => 'publish',
-                'post_type' => 'review',
                 'post_author' => $current_user_id,
                 'meta_input' => array(
-                    '_reviewed_person_id' => $person_id,
-                    '_review_author_id' => $current_user_id,
+                    '_person_profile_id' => $person_id,
+                  //  '_review_author_id' => $current_user_id,
                     '_review_rating' => $review_rating
                 )
             );

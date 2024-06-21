@@ -4,7 +4,7 @@
 $person_id = get_the_ID();
 
 // এই ব্যক্তির জন্য WooCommerce পণ্য তৈরি বা খুঁজে বের করা
-// $product_id = get_or_create_product_for_person($person_id);
+$product_id = get_product_id_by_person($person_id);
 
 // if (!$product_id) {
 //     echo '<strong>Failed to create or retrieve product for this person.</strong>';
